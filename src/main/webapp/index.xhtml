@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+    <div class="p-d-flex">
+        <div class="p-mr-2" style="margin-top: 2em">
+            <div class="p-mr-2">
+                <h:form>
+                    <p:dataTable id="table" var="game" value="#{gameBean.games}"
+                                 allowUnsorting="true" sortMode="single">
+                        <p:column headerText="Game Title" field="name" filterable="false"
+                                  sortOrder="asc">
+                            <h:outputText value="#{game.name}"/>
+                        </p:column>
+
+                        <p:column headerText="Price" field="price" filterable="false">
+                            <h:outputText value="#{game.price}"/>
+                        </p:column>
+
+                        <p:column headerText="Quantity" field="quantity" filterable="false">
+                            <h:outputText value="#{game.quantity}"/>
+                        </p:column>
+
+                        <p:column headerText="Developer" field="developer" filterable="false">
+                            <h:outputText value="#{game.developer}"/>
+                        </p:column>
+
+                        <p:column headerText="Remove Game">
+                            <p:commandButton type="submit" value="Remove Game" icon="pi pi-refresh"
+                                             actionListener="#{gameBean.removeGame(game)}"
+                                             style="margin-right: 2em" iconPos="right"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </div>
+
+        <h:form>
+            <div class="p-field" style="margin: 2em">
+                <p:outputLabel for="name" style="margin-right: .95em">Game Title: </p:outputLabel>
+                <p:inputText id="name" type="text" value="#{gameBean.name}">
+                </p:inputText>
+            </div>
+
+            <div class="p-field" style="margin: 2em">
+                <p:outputLabel for="price" style="margin-right: 3.50em">Price: </p:outputLabel>
+                <p:inputText id="price" type="text" value="#{gameBean.price}"/>
+            </div>
+
+            <div class="p-field" style="margin: 2em">
+                <p:outputLabel for="developer" style="margin-right: 1.20em">Developer: </p:outputLabel>
+                <p:inputText id="developer" type="text" value="#{gameBean.developer}"/>
+            </div>
+
+            <p:commandButton style="margin: 2em" type="submit" actionListener="#{gameBean.addGame}"
+                             validateClient="true"
+                             value="Add Game" icon="pi pi-check" iconPos="right"/>
+        </h:form>
+    </div>
+
+    <div class="p-mr-2" style="margin-top: 2em">
+        <h:form>
+            <div class="p-field" style="margin: 2em">
+                <p:outputLabel for="updateName" style="margin-right: 6.40em">Game Title: </p:outputLabel>
+                <p:inputText id="updateName" type="text" value="#{gameBean.currentName}">
+                    <f:validator validatorId="nameValidator" for="updateName"/>
+                </p:inputText>
+                <p:message for="@previous"/>
+            </div>
+
+            <div class="p-field" style="margin: 2em">
+                <p:outputLabel for="newQuantity" style="margin-right: 3.25em">Updated Quantity: </p:outputLabel>
+                <p:inputText id="newQuantity" type="text" value="#{gameBean.newQuantity}"/>
+            </div>
+
+            <p:commandButton style="margin: 2em" type="submit" actionListener="#{gameBean.updateQuantity}"
+                             validateClient="true"
+                             value="Update Game" icon="pi pi-check" iconPos="right"/>
+        </h:form>
+    </div>
+</h:body>
+</html>
